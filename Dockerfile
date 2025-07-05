@@ -1,24 +1,20 @@
-# Use Maven with Java 21 to build the project
+# 1️⃣ Build stage using Maven with Java 21
 FROM maven:3.9.6-eclipse-temurin-21 AS build
 
 WORKDIR /app
-
-# Copy everything from the current directory (should include pom.xml and src/)
 COPY . .
 
-# Build the app, skipping tests (optional)
-RUN mvn clean package
+# Build the app without running tests
+RUN mvn clean package -DskipTests
 
-# Use lightweight Java 21 runtime to run the built jar
-FROM eclipse-temurin:21-jdk-slim
+# 2️⃣ Runtime stage using Java 21
+FROM eclipse-temurin:21-jdk
 
 WORKDIR /app
 
-# Copy the built JAR file from previous stage
+# Copy the built JAR from the builder stage
 COPY --from=build /app/target/demo-0.0.1-SNAPSHOT.jar bank_system.jar
 
-# Expose port 8080 (for Spring Boot)
 EXPOSE 8080
 
-# Run the app
 ENTRYPOINT ["java", "-jar", "bank_system.jar"]
