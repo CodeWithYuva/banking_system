@@ -441,7 +441,7 @@
   let currentUser = null;
   let isAdmin = false;
   let allUsers = [];
-  const API_BASE = 'http://localhost:8080'; // Adjust to your Spring Boot server
+  const API_BASE = 'https://banking-system-5.onrender.com/'; // Updated to your public URL
 
   // Utility functions
   function showPage(pageId) {
@@ -697,8 +697,6 @@
                   <tr>
                       <th>ID</th>
                       <th>Username</th>
-
-
                       <th>Balance</th>
                   </tr>
               </thead>
@@ -710,8 +708,6 @@
               <tr>
                   <td>${user.id || 'N/A'}</td>
                   <td>${user.username || 'N/A'}</td>
-
-
                   <td>${(user.bal || 0).toLocaleString()}</td>
               </tr>
           `;
